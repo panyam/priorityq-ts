@@ -1,5 +1,5 @@
 {
-  "name": "priorityq",
+  "name": "@panyam/priorityq",
   "version": "0.0.1",
   "author": "Sriram Panyam",
   "description": "A Priority Queue implementation with O(1) lookups for lookup by value.",
