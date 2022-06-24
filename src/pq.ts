@@ -4,7 +4,7 @@ import { BinHeapStorage } from "./binheap";
 type KeyType = string | number;
 type KeyFunc<T> = (value: T) => KeyType;
 function idKeyFunc<T>(x: T) {
-  return (x as any) as KeyType;
+  return x as any as KeyType;
 }
 
 export class PQ<T> {
