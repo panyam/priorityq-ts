@@ -26,7 +26,7 @@ export class PQ<T> {
   /**
    * Returns a handle to the minimum (top) value.
    */
-  get top() {
+  get top(): Handle<T> {
     return this.storage.top;
   }
 
@@ -51,7 +51,7 @@ export class PQ<T> {
    *
    * Returns a handle to the value within the PQ.
    */
-  push(value: T) {
+  push(value: T): Handle<T> {
     const key = this.keyFunc(value);
     let handleEntry = this.handlesByValue.get(key) || null;
     if (handleEntry == null) {
@@ -63,13 +63,13 @@ export class PQ<T> {
     return handleEntry[0];
   }
 
-  heapify(values: IterableIterator<T>) {
+  heapify(values: IterableIterator<T>): void {
     for (const value of values) {
       this.push(value);
     }
   }
 
-  adjustValue(value: T) {
+  adjustValue(value: T): void {
     const handle = this.find(value);
     if (handle == null) {
       this.push(value);
@@ -86,11 +86,11 @@ export class PQ<T> {
    * its position in the heap would have changed (due to a change in
    * its priority).
    */
-  adjust(handle: Handle<T>) {
+  adjust(handle: Handle<T>): void {
     this.storage.adjust(handle);
   }
 
-  removeValue(value: T) {
+  removeValue(value: T): void {
     const handle = this.find(value);
     if (handle != null) {
       this.remove(handle);
@@ -104,7 +104,7 @@ export class PQ<T> {
    * To remove all instances of a value from the PQ, pass the value
    * instead.
    */
-  remove(handle: Handle<T>) {
+  remove(handle: Handle<T>): void {
     const key = this.keyFunc(handle.value);
     const handleEntry = this.handlesByValue.get(key) || [null, -1];
     const [foundHandle, count] = handleEntry;
@@ -134,15 +134,15 @@ export class PQ<T> {
     return this.findByKey(key);
   }
 
-  get size() {
+  get size(): number {
     return this.storage.size;
   }
 
-  get isEmpty() {
+  get isEmpty(): boolean {
     return this.storage.isEmpty;
   }
 
-  clear() {
+  clear(): void {
     this.storage.clear();
     this.handlesByValue = new Map<KeyType, [Handle<T>, number]>();
   }
